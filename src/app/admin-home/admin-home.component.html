@@ -1,0 +1,161 @@
+<div class="wrapper">
+  <!-- Sidebar  -->
+<app-admin-sidebar style="background: #7386D5"></app-admin-sidebar>
+  <!-- Page Content  -->
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+          <i class="fa fa-align-left"></i>
+          <!-- <span>Toggle Sidebar</span> -->
+        </button>
+      </div>
+    </nav>
+    <div class="content-wrapper-dashboard">
+      <div class="row topBlock">
+          <div class="briefInfo">
+              <div class="col-md-3">
+                  <div class="block">
+                      <h4>{{this.orderPlaced.length}}</h4>
+                      <h1>Order Placed</h1>
+                  </div>
+              </div>
+              <div class="col-md-3">
+                  <div class="block">
+                      <h4>{{this.processing.length}}</h4>
+                      <h1>Processing</h1>
+                  </div>
+              </div>
+              <div class="col-md-3">
+                  <div class="block">
+                      <h4>{{this.readyForCollection.length}}</h4>
+                      <h1>Ready for Delivery</h1>
+                  </div>
+              </div>
+              <div class="col-md-3">
+                  <div class="block">
+                      <h4>{{this.paymentPending.length}}</h4>
+                      <h1>Payment Pending</h1>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row secondBlock">
+          <div class="col-md-6">
+              <div class="data">
+                  <h1>Order Placed</h1>
+                  <div class="table-wrapper" *ngIf="this.orderPlaced.length != 0">
+                    <div class="table-responsive" >
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="hidden-xs">ID</th>
+                                    <th>Product Name</th>
+                                    <th>Order Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let placed of this.orderPlaced">
+                                    <td>{{placed.orderID}}</td>
+                                    <td>{{placed.typeName}}</td>
+                                    <td>{{placed.orderStatus}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+                  <div class="placeholder" *ngIf="this.orderPlaced.length == 0">
+                      <p>No Order Placed</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="data">
+                  <h1>Processing</h1>
+                  <div class="table-wrapper" *ngIf="this.processing.length != 0">
+                    <div class="table-responsive" >
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="hidden-xs">ID</th>
+                                    <th>Product Name</th>
+                                    <th>Order Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let placed of this.processing">
+                                    <td>{{placed.orderID}}</td>
+                                    <td>{{placed.typeName}}</td>
+                                    <td>{{placed.orderStatus}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+                  <div class="placeholder" *ngIf="this.processing.length == 0">
+                      <p>No Order for Processing</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-6">
+              <div class="data">
+                  <h1>Order Ready for Collection</h1>
+                  <div class="table-wrapper" *ngIf="this.readyForCollection.length != 0">
+                    <div class="table-responsive" >
+                        <table class="table ">
+                            <thead>
+                                <tr>
+                                    <th class="hidden-xs">ID</th>
+                                    <th>Product Name</th>
+                                    <th>Order Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let placed of this.readyForCollection">
+                                    <td>{{placed.orderID}}</td>
+                                    <td>{{placed.typeName}}</td>
+                                    <td>{{placed.orderStatus}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+                  <div class="placeholder" *ngIf="this.readyForCollection.length == 0">
+                      <p>No Order Ready for Collection</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="data">
+                  <h1>Payment Pending</h1>
+                  <div class="table-wrapper" *ngIf="this.paymentPending.length != 0">
+                    <div class="table-responsive" >
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="hidden-xs">ID</th>
+                                    <th>Product Name</th>
+                                    <th>Order Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let placed of this.paymentPending">
+                                    <td>{{placed.orderID}}</td>
+                                    <td>{{placed.typeName}}</td>
+                                    <td>{{placed.orderStatus}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+                  <div class="placeholder" *ngIf="this.paymentPending.length == 0">
+                      <p>No Payment Pending</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

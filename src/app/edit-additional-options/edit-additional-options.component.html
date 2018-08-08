@@ -1,0 +1,51 @@
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <app-admin-sidebar style="background: #7386D5"></app-admin-sidebar>
+  <!-- Page Content  -->
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+          <i class="fa fa-align-left"></i>
+        </button>
+          <h1>Edit Additional Options</h1>
+      </div>
+    </nav>
+    <div class="content-wrapper">
+      <div class="row">
+          <div class="col-md-10 col-xs-12">
+              <div class="form-wrapper">
+                  <form>
+                      <div class="form-group row">
+                          <div class="col-md-6 col-xs-12">
+                              <label for="name">Name</label>
+                              <input type="text" class="form-control" id="name" name="name" #name [value] = 'this.name1' placeholder="Option name" required>
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <div class="col-md-6 col-xs-12">
+                              <label for="cost">Cost</label>
+                              <input type="number" class="form-control" id="cost" name="cost" #cost [value] = 'this.cost1'  placeholder="Cost" required>
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                      	<div class="col-md-6 col-xs-12">
+                      		<div class="checkbox-inline">
+                      		  <label><input type="checkbox" id="repeat" name="repeat" #repeat [checked] = 'this.checked'>Repeat</label>
+                      		</div>
+                      	</div>
+                      </div>
+                      <div class="form-group row">
+                          <div class="col-md-6 col-xs-12">
+                            <div class="buttons">
+                                <button type="submit" class="btn btn-info" (click) = 'editAdditionalOptions(name.value, cost.value, repeat.checked, this.createdBy, this.status)'> Update </button>
+                            </div>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

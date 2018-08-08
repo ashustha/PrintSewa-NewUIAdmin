@@ -1,0 +1,751 @@
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <app-admin-sidebar style="background: #7386D5"></app-admin-sidebar>
+  <!-- Page Content  -->
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+          <i class="fa fa-align-left"></i>
+          <!-- <span>Toggle Sidebar</span> -->
+        </button>
+        <h1>Products</h1>
+      </div>
+    </nav>
+    <div class="content-wrapper">
+      <!--No Additional Cost Added -->
+      <div class="row" id="noAdditionalCost">
+        <div class="col-md-12">
+          <div class="header">
+            <div class="row">
+              <div class="col col-xs-6">
+                <h3 class="panel-title">Products (Price are Exclusive of Additional Cost)</h3>
+              </div>
+              <div class="col col-xs-6">
+                <div class="action-buttons">
+                  <!-- <button type="button" class="btn btn-sm btn-primary btn-create" (click)="noAdditionalCost()">Products without Additional Cost</button>
+                            <button type="button" class="btn btn-sm btn-primary btn-create" (click)="additionalCost()">Products with Additional Cost</button> -->
+                  <form>
+                    <div class="form-group selectOptions">
+                      <select class="form-control" id="toggleSelect" name='toggleSelect' [(ngModel)]='toggleSelect' (change)="toggleAdditionalCost(toggleSelect)">
+                        <option [value]=select selected disabled>--Select Option--</option>
+                        <option value='all'>All Products</option>
+                        <option value='without'>Products without Additional Cost</option>
+                        <option value='with'>Products with Additional Cost</option>
+                      </select>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#createProduct">Create New</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="placeholder" *ngIf="this.allProductTypeNoAdditionalCost.length == 0">
+            <p>No Products are Available</p>
+          </div>
+          <div *ngIf="this.allProductTypeNoAdditionalCost.length != 0">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="hidden-xs">ID</th>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Page GSM</th>
+                    <th>Remarks</th>
+                    <th>Weight</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let type of this.allProductTypeNoAdditionalCost">
+                  <tr *ngIf="type.typeStatus == 'active'">
+                    <td class="hidden-xs">{{type.typeID}}</td>
+                    <td>{{type.typeName}}</td>
+                    <td>{{type.remarks}} {{type.width}} {{type.unit}} X {{type.height}} {{type.unit}}</td>
+                    <td>{{type.paperGsm}}</td>
+                    <td>{{type.remarks}}</td>
+                    <td>{{type.weight}}</td>
+                    <td class="actionBtn">
+                      <a class="btn btn-default" (click)="editProductType(type.typeID)"><em class="fa fa-pencil"></em></a>
+                      <a class="btn btn-danger" (click)="deleteProductType(type.typeID,type)"><em class="fa fa-trash"></em></a>
+                      <a class='btn btn-primary' data-toggle="modal" data-target="#detailModal" (click)='feedModalData(type)'><em class = 'fa fa-eye'></em></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Additional Cost Included -->
+      <div class="row" id="additionalCost">
+        <div class="col-md-12">
+          <div class="header">
+            <div class="row">
+              <div class="col col-xs-6">
+                <h3 class="panel-title">Products (Price are Inclusive of Additional Cost)</h3>
+              </div>
+              <div class="col col-xs-6">
+                <div class="action-buttons">
+                  <!-- <button type="button" class="btn btn-sm btn-primary btn-create" (click)="noAdditionalCost()">Products without Additional Cost</button>
+                                  <button type="button" class="btn btn-sm btn-primary btn-create" (click)="additionalCost()">Products with Additional Cost</button> -->
+                  <form>
+                    <div class="form-group selectOptions">
+                      <select class="form-control" id="toggleSelect" name='toggleSelect' [(ngModel)]='toggleSelect' (change)="toggleAdditionalCost(toggleSelect)">
+                        <option [value]=select selected disabled>--Select Option--</option>
+                        <option value='all'>All Products</option>
+                        <option value='without'>Products without Additional Cost</option>
+                        <option value='with'>Products with Additional Cost</option>
+                      </select>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#createProduct">Create New</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="placeholder" *ngIf="this.sortedData.length == 0">
+            <p>No Products are Available</p>
+          </div>
+          <div class="" *ngIf="this.sortedData.length != 0">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="hidden-xs">ID</th>
+                    <th>Name</th>
+                    <!-- <th>ProductID</th> -->
+                    <th>Size</th>
+                    <th>Page GSM</th>
+                    <th>Remarks</th>
+                    <!-- <th>Additional Cost</th> -->
+                    <th>Weight</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let sortedData of this.sortedData">
+                  <tr *ngIf="sortedData.typeStatus == 'active'">
+                    <td class="hidden-xs">{{sortedData.typeID}}</td>
+                    <td>{{sortedData.typeName}}</td>
+                    <!-- <td>{{sortedData.productID}}</td> -->
+                    <td>{{sortedData.remarks}} {{sortedData.width}} {{sortedData.unit}} X {{sortedData.height}} {{sortedData.unit}}</td>
+                    <td>{{sortedData.paperGsm}}</td>
+                    <td>{{sortedData.remarks}}</td>
+                    <!-- <td>{{sortedData.name}}</td> -->
+                    <td>{{sortedData.weight}}</td>
+                    <td class="actionBtn">
+                      <a class="btn btn-default" (click)="editProductType(sortedData.typeID)"><em class="fa fa-pencil"></em></a>
+                      <a class="btn btn-danger" (click)="deleteProductType(sortedData.typeID,sortedData)"><em class="fa fa-trash"></em></a>
+                      <a class='btn btn-primary' data-toggle="modal" data-target="#detailModal" (click)='feedModalData(sortedData)'><em class = 'fa fa-eye' ></em></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--All the Products -->
+      <div class="row" id="all">
+        <div class="col-md-12">
+          <div class="header">
+            <div class="row">
+              <div class="col col-xs-6">
+                <h3 class="panel-title">All Products</h3>
+              </div>
+              <div class="col col-xs-6">
+                <div class="action-buttons">
+                  <!-- <button type="button" class="btn btn-sm btn-primary btn-create" (click)="noAdditionalCost()">Products without Additional Cost</button>
+                                <button type="button" class="btn btn-sm btn-primary btn-create" (click)="additionalCost()">Products with Additional Cost</button> -->
+                  <form>
+                    <div class="form-group selectOptions">
+                      <select class="form-control" id="toggleSelect" name='toggleSelect' [(ngModel)]='toggleSelect' (change)="toggleAdditionalCost(toggleSelect)">
+                        <option [value]=select disabled>--Select Option--</option>
+                        <option value='all' selected>All Products</option>
+                        <option value='without'>Products without Additional Cost</option>
+                        <option value='with'>Products with Additional Cost</option>
+                      </select>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#createProduct">Create New</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="placeholder" *ngIf="this.allProductTypeLength == 0">
+            <p>No Products are Available</p>
+          </div>
+          <div class="" *ngIf="this.allProductTypeLength != 0">
+            <div class="table-responsive">
+              <table class="table ">
+                <thead>
+                  <tr>
+                    <th class="hidden-xs">ID</th>
+                    <th>Name</th>
+                    <!-- <th>ProductID</th> -->
+                    <th>Size</th>
+                    <th>Page GSM</th>
+                    <th>Remarks</th>
+                    <!-- <th>Additional Cost</th> -->
+                    <th>Weight</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let allProduct of this.allProductType">
+                  <tr *ngIf="allProduct.typeStatus == 'active'">
+                    <td class="hidden-xs">{{allProduct.typeID}}</td>
+                    <td>{{allProduct.typeName}}</td>
+                    <!-- <td>{{sortedData.productID}}</td> -->
+                    <td>{{allProduct.remarks}} {{allProduct.width}} {{allProduct.unit}} X {{allProduct.height}} {{allProduct.unit}}</td>
+                    <td>{{allProduct.paperGsm}}</td>
+                    <td>{{allProduct.remarks}}</td>
+                    <!-- <td>{{sortedData.name}}</td> -->
+                    <td>{{allProduct.weight}}</td>
+                    <td class="actionBtn">
+                      <a class="btn btn-default" (click)="editProductType(allProduct.typeID)"><em class="fa fa-pencil"></em></a>
+                      <a class="btn btn-danger" (click)="deleteProductType(allProduct.typeID,allProduct)"><em class="fa fa-trash"></em></a>
+                      <a class='btn btn-primary' data-toggle="modal" data-target="#detailModal" (click)='feedModalData(allProduct)'><em class = 'fa fa-eye' ></em></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pagination">
+        <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+  
+<!-- Create Product Modal -->
+<div class="modal  animated zoomIn fast" id="createProduct" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Product</h4>
+      </div>
+      <div class="modal-body create-product">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-wrapper">
+                    <form (submit)="createProductType(createProductForm)" [formGroup]='createProductForm'>
+                        <div class="form-group row">
+                            <div class="col-md-6 col-xs-12">
+                                <label for="product">Select Super Category*</label>
+                                <select class="form-control" id="productWa" name="productWa" formControlName="product" (change)="productKeyFunction()" required>
+                                    <option [ngValue]=null disabled>Select Super Category</option>
+                                    <option *ngFor="let product of this.products" [value]="product.productName"> {{product.productName}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <label for="type">Select Category*</label>
+                                <select class="form-control" id="type" name="type" formControlName="type" (change)="superCategoryKeyFunction()" required>
+                                    <option [ngValue]=null selected disabled>Select Category</option>
+                                    <option *ngFor="let category of this.superCategory">{{category.superCategory}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <form enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="banner">Upload Image</label>
+                                <input id="banner" name="banner" type="file" (change)='fileChangeEvent($event)' accept=".jpg,.jpeg,.png" placeholder='Upload a banner..' />
+                            </div>
+                        </form>
+                        <div class="form-group row">
+                            <div class="col-md-6 col-xs-12">
+                                <label for="productType">Product Name*</label>
+                                <input type="text" class="form-control" id="productType" name="productType" formControlName="productType" placeholder="Product name" required>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <label for="productKey">Product Key*</label>
+                                <input type="text" class="form-control" id="productKey" name="productKey" formControlName="productKey" placeholder="eg.LH for Letterhead" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6 col-xs-12">
+                                <label for="productCode">Product Code*</label>
+                                <input type="text" class="form-control" id="productCode" name="productCode" value="{{this.categoryKey}}-{{this.superCategoryKey}}-{{createProductForm.value.productKey}}-{{this.typeID}}" disabled>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <label for="profitMargin">Product Profit Margin*</label>
+                                <input type="number" class="form-control" id="profitMargin" name="profitMargin" formControlName="profitMargin" placeholder="Enter Profit Margin" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="width">Width*</label>
+                                <input type="number" class="form-control" id="width" name="width" formControlName="width" step="0.1" placeholder="Enter width" required>
+                            </div>
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="height">Height*</label>
+                                <input type="number" class="form-control" placeholder="Enter height" id="height" name="height" step="0.1" formControlName="height" required>
+                            </div>
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="unit">Unit*</label>
+                                <select class="form-control" id="unit" name="unit" formControlName="unit" required>
+                                    <option [ngValue]=null selected disabled>Select Unit</option>
+                                    <option>mm</option>
+                                    <option>cm</option>
+                                    <option>in</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6 col-xs-12">
+                                <label for="remark">Description*</label>
+                                <textarea class="form-control" rows="2" id="remark" name="remark" formControlName="remark" placeholder="Add your remarks to this product." required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3 col-xs-12">
+                                <label for="paper">Paper GSM*</label>
+                                <input type="text" placeholder="Paper GSM" class="form-control" id="paper" name="paper" formControlName="paper" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6 col-xs-12">
+                                <label for="paper">Additional Cost</label>
+                                <br>
+                                <div *ngFor="let option of this.additionalOption">
+                                    <input type="checkbox" (change)="checkChange(option.additionalOptionsID)" name="additionalCost" multiple id="{{option.additionalOptionsID}}" style="margin-right:10px;">
+                                    <label>{{option.name}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3 col-xs-12">
+                                <label for="weight">Weight (gram)*</label>
+                                <input type="number" step="0.1" class="form-control" id="weight" name="weight" formControlName="weight" placeholder="Weight" required>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group row">
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="minQuantity">Min Quantity*</label>
+                                <input type="number" class="form-control" id="minQuantity" name="minQuantity" formControlName="minQuantity" placeholder="Quantity" required>
+                            </div>
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="maxQuantity">Max Quantity*</label>
+                                <input type="number" class="form-control" id="maxQuantity" name="maxQuantity" formControlName="maxQuantity" placeholder="Quantity" required>
+                            </div>
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="normalPrice">Normal Price*</label>
+                                <input type="number" class="form-control" id="normalPrice" name="normalPrice" formControlName="normalPrice" placeholder="Normal Price" required>
+                            </div>
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="urgentPrice">Urgent Price*</label>
+                                <input type="number" class="form-control" id="urgentPrice" name="urgentPrice" formControlName="urgentPrice" placeholder="Urgent price" required>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group row usingFlex">
+                            <div class="col-md-5 col-xs-12 form-group">
+                                <label for="normalTime">Normal Production Time (in hrs)*</label>
+                                <br>
+                                <label style="margin-right:10px;">
+                                    <input type="radio" name="normal" id="ntHours" (change)="normalTimeChange(ntHours)" #ntHours value="hrs"> In Hours</label>
+                                <label>
+                                    <input type="radio" name="normal" id="ntDays" (change)="normalTimeChange(ntDays)" #ntDays value="days"> In Days</label>
+                                <input type="number" class="form-control" id="normalTime" name="normalTime" formControlName="normalTime" required>
+                            </div>
+                            <div class="col-md-5 col-xs-12 form-group">
+                                <label for="urgentTime">Urgent Production Time (in hrs)*</label>
+                                <br>
+                                <label style="margin-right:10px;">
+                                    <input type="radio" name="urgent" id="utHours" (change)="urgentTimeChange(utHours)" #utHours value="hrs"> In Hours</label>
+                                <label>
+                                    <input type="radio" name="urgent" id="utDays" (change)="urgentTimeChange(utDays)" #utDays value="days"> In Days</label>
+                                <input type="number" class="form-control" id="urgentTime" name="urgentTime" formControlName="urgentTime" required>
+                            </div>
+                            <div class="col-md-2 col-xs-12 form-group buttonPosition">
+                                <div class="button-wrapper">
+                                    <button type="button" class = 'btn btn-success add-new' (click)="addToPriceArray(createProductForm)"><span class = 'glyphicon glyphicon-plus'></span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <table class='table table-bordered'>
+                                <tr>
+                                    <th>Min Quantity</th>
+                                    <th>Max Quantity</th>
+                                    <th>Normal Price</th>
+                                    <th>Urgent Price</th>
+                                    <th>Normal Production Time</th>
+                                    <th>Urgent Production Time</th>
+                                </tr>
+                                <tr *ngFor='let price of this.priceArray'>
+                                    <td>{{price.minQty}}</td>
+                                    <td>{{price.maxQty}}</td>
+                                    <td>{{price.normalPrice}}</td>
+                                    <td>{{price.urgentPrice}}</td>
+                                    <td>{{price.normalProductionTime}}</td>
+                                    <td>{{price.urgentProductionTime}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <div class="buttons">
+                                <button type="submit" class="btn btn-info"> Add Product</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-----Detail Modal-------->
+<div class="modal animated zoomIn fast" id='detailModal' role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{this.modalTypeName}} {{this.modalWidth}} X {{this.modalHeight}} {{this.modalUnit}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="product-pic">
+                            <img src="{{this.modalImgHref}}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group row info">
+                            <div class="col-md-6">
+                                <label>Page GSM</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{this.modalPaperGsm}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row info">
+                            <div class="col-md-6">
+                                <label>Weight</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{this.modalWeight}} gram</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label>Description</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{this.modalRemarks}}</p>
+                            </div>
+                        </div>
+                        <div *ngIf="this.modalAdditionalCosts != ''" class="form-group row">
+                          <div class="info">
+                            <div class="col-md-12">
+                              <label>Additional Costs</label>
+                            </div>
+                            <table class='table'>
+                              <tr>
+                                <th>Name</th>
+                                <th>Cost</th>
+                              </tr>
+                              <tr *ngFor='let data of this.additionalCostData'>
+                                <td>{{data.name}}</td>
+                                <td>Rs. {{data.cost}}</td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="info">
+                            <div class="col-md-12">
+                              <label>Price List</label>
+                            </div>
+                            <table class='table'>
+                              <tr>
+                                <th>Range</th>
+                                <th>Normal Price</th>
+                                <th>Urgent Price</th>
+                              </tr>
+                              <tr *ngFor='let price of this.priceData'>
+                                <td>{{price.minQty}}-{{price.maxQty}}</td>
+                                <td>Rs. {{price.normalPrice}}</td>
+                                <td>Rs. {{price.urgentPrice}}</td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Create Product Modal -->
+<div class="modal  animated zoomIn fast" id="editProduct" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Product</h4>
+      </div>
+      <div class="modal-body create-product">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-wrapper">
+                    <form>
+                        <div class="form-group row">
+                            <div class="col-md-6 col-xs-12">
+                                <label for="productType">Product Name*</label>
+                                <input type="text" class="form-control" id="productType" name="productType" placeholder="Product name" [value]="this.typeName" #productType required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3 col-xs-12">
+                                <label for="product">Select Super Category*</label>
+                                <select class="form-control" id="product" name="product" [value]="this.productName" #product required>
+                                    <option *ngFor="let product of this.products">{{product.productName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3 col-xs-12">
+                                <label for="type">Select Category*</label>
+                                <select class="form-control" id="type1" name="type1" [value]="this.type" #type1 required>
+                                    <option *ngFor="let supercategory of this.allSuperCategory">{{supercategory.superCategory}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <form enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="banner">Upload Image</label>
+                                <input id="banner" name="banner" type="file" (change)='fileChangeEvent($event)' accept=".jpg,.jpeg,.png" placeholder='Upload a banner..' />
+                                <br/>
+                            </div>
+                        </form>
+                        <div class="form-group row">
+                            <div class="col-md-6 col-xs-12">
+                                <label for="profitMargin1">Profit Margin*</label>
+                                <input type="number" class="form-control" id="profitMargin1" name="profitMargin1" [value]="this.profitMargin" #profitMargin1 required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="width">Width*</label>
+                                <input type="number" class="form-control" step="0.1" id="width1" name="width1" [value]="this.width" placeholder="Enter width" #width1 required>
+                            </div>
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="height">Height*</label>
+                                <input type="number" class="form-control" step="0.1" placeholder="Enter height" id="height1" name="height1" [value]="this.height" #height1 required>
+                            </div>
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="unit">Unit*</label>
+                                <select class="form-control" id="unit1" name="unit1" [value]="this.unit" #unit1 required>
+                                    <option>mm</option>
+                                    <option>cm</option>
+                                    <option>in</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6 col-xs-12">
+                                <label for="remark">Remarks*</label>
+                                <textarea class="form-control" rows="5" id="remark" name="remark" placeholder="Add your remarks to this product." [value]="this.remarks" #remark required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3 col-xs-12">
+                                <label for="paper">Paper GSM*</label>
+                                <input type="text" class="form-control" id="paper" name="paper" [value]="this.paperGsm" #paper required>
+                            </div>
+                        </div>
+                        <div class="form-group row" *ngIf="this.additionalCostsLength == 0 ">
+                            <div class="col-md-6 col-xs-12">
+                                <label for="paper">Additional Costs</label>
+                                <br>
+                                <div *ngFor="let option of this.additionalOption; let i = index">
+                                    <input type="checkbox" (change)="checkChange(option.additionalOptionsID)" id="additionalCost" name="additionalCost" multiple id="{{option.additionalOptionsID}}">
+                                    <label>{{option.name}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row" *ngIf="this.additionalCostsLength > 0 ">
+                            <div class="col-md-6 col-xs-12">
+                                <label for="paper">Additional Costs</label>
+                                <br>
+                                <div *ngFor="let selected of this.additionalCostsArray;  let i = index">
+                                        <input type="checkbox" (change)="checkChange(selected.additionalOptionsID)" id="additionalCost" name="additionalCost" id="{{selected.additionalOptionsID}}" [checked]="true">
+                                        <label>{{selected.name}}</label>
+                                </div>
+                                <div *ngFor="let option of this.additionalOption;  let i = index">
+                                        <input type="checkbox" (change)="checkChange(option.additionalOptionsID)" id="additionalCost" name="additionalCost" id="{{option.additionalOptionsID}}">
+                                        <label>{{option.name}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3 col-xs-12">
+                                <label for="weight">Weight*</label>
+                                <input type="number" class="form-control" step="0.1" id="weight1" name="weight1" placeholder="Weight" [value]="this.weight" #weight1 required>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group row">
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="minQuantity">Min Quantity*</label>
+                                <input type="number" class="form-control" id="minQuantity" name="minQuantity" placeholder="Quantity" #minQuantity required>
+                            </div>
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="maxQuantity">Max Quantity*</label>
+                                <input type="number" class="form-control" id="maxQuantity" name="maxQuantity" placeholder="Quantity" #maxQuantity required>
+                            </div>
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="normalPrice">Normal Price*</label>
+                                <input type="number" class="form-control" id="normalPrice1" name="normalPrice1" placeholder="Normal Price" #normalPrice1 required>
+                            </div>
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="urgentPrice">Urgent Price*</label>
+                                <input type="number" class="form-control" id="urgentPrice1" name="urgentPrice1" placeholder="Urgent price" #urgentPrice1 required>
+                            </div>
+                        </div>
+                        <div class="row form-group usingFlex">
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="normalTime" style="margin-bottom:10px;">Normal Production Time*</label>
+                                <br>
+                                <label style="margin-bottom:10px;">
+                                    <input type="radio" name="normal" id="ntHours" (change)="normalTimeChange(ntHours)" #ntHours value="hrs"> In Hours</label>
+                                <label style="margin-bottom:10px;">
+                                    <input type="radio" name="normal" id="ntDays" (change)="normalTimeChange(ntDays)" #ntDays value="days"> In Days</label>
+
+                                    <input type="text" class="form-control" id="normalTime" name="normalTime" placeholder="in hours" #normalTime required>
+                            </div>
+                            <div class="col-md-3 col-xs-12 form-group">
+                                <label for="urgentTime" style="margin-bottom:10px;">Urgent Production Time*</label>
+                                <br>
+                                <label style="margin-bottom:10px;">
+                                    <input type="radio" name="urgent" id="utHours" (change)="urgentTimeChange(utHours)" #utHours value="hrs"> In Hours</label>
+                                <label style="margin-bottom:10px;">
+                                    <input type="radio" name="urgent" id="utDays" (change)="urgentTimeChange(utDays)" #utDays value="days"> In Days</label>
+                                <input type="text" class="form-control" id="urgentTime" name="urgentTime" placeholder="in hours" #urgentTime required>
+                            </div>
+                            <div class="col-md-3 col-xs-12 buttonPosition">
+                                <div class="button-wrapper">
+                                    <button class='btn btn-success add-new' (click)='addNewPrices(minQuantity.value,maxQuantity.value,normalPrice1.value,urgentPrice1.value,normalTime.value,urgentTime.value)'><span class='glyphicon glyphicon-plus'></span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class='table table-bordered'>
+                                        <thead>
+                                            <tr>
+                                                <th>Minimum Quantity</th>
+                                                <th>Maximum Quantity</th>
+                                                <th>Normal Price</th>
+                                                <th>Urgent Price</th>
+                                                <th>Normal Production Time</th>
+                                                <th>Urgent Production Time</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor='let pr of this.price'>
+                                                <td>{{pr.minQty}}</td>
+                                                <td>{{pr.maxQty}}</td>
+                                                <td>{{pr.normalPrice}}</td>
+                                                <td>{{pr.urgentPrice}}</td>
+                                                <td>{{pr.normalProductionTime}}</td>
+                                                <td>{{pr.urgentProductionTime}}</td>
+                                                <td>
+                                                    <button data-toggle="modal" data-target="#priceModal" class='btn btn-primary btn-block' (click)="modalPrice(pr.priceID)">Edit</button>
+                                                </td>
+                                                <td>
+                                                    <button (click)='deletePrice(pr)' class='btn btn-warning btn-block'>Delete</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="priceModal" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Edit Price</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-3 col-xs-12 form-group">
+                                                <label for="modalMin">Min Quantity*</label>
+                                                <input type="number" class="form-control" id="modalMin" name="modalMin" [value]="this.modalMinQty" #modalMin required>
+                                            </div>
+                                            <div class="col-md-3 col-xs-12 form-group">
+                                                <label for="modalMax">Max Quantity*</label>
+                                                <input type="number" class="form-control" id="modalMax" name="modalMax" [value]="this.modalMaxQty" #modalMax required>
+                                            </div>
+                                            <div class="col-md-3 col-xs-12 form-group">
+                                                <label for="modalPriceNormal">Normal Price*</label>
+                                                <input type="number" class="form-control" id="modalPriceNormal" name="modalPriceNormal" [value]="this.modalNormalPrice" #modalPriceNormal required>
+                                            </div>
+                                            <div class="col-md-3 col-xs-12 form-group">
+                                                <label for="modalPriceUrgent">Urgent Price*</label>
+                                                <input type="number" class="form-control" id="modalPriceUrgent" name="modalPriceUrgent" [value]="this.modalUrgentPrice" #modalPriceUrgent required>
+                                            </div>
+                                            <div class="col-md-6 col-xs-12 form-group">
+                                                <label for="modalTimeNormal" style="margin-bottom:10px;">Normal Production Time*</label>
+                                                <br>
+                                                <label style="margin-bottom:10px;">
+                                                    <input type="radio" name="normal" id="modalNHours" (change)="modalNormalTimeChange(modalNHours)" #modalNHours value="hrs"> In Hours</label>
+                                                <label style="margin-bottom:10px;">
+                                                    <input type="radio" name="normal" id="modalNDays" (change)="modalNormalTimeChange(modalNDays)" #modalNDays value="days"> In Days</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="modalTimeNormal" name="modalTimeNormal" [value]="this.modalNormalProductionTime" #modalTimeNormal required>
+                                                    <span class="input-group-addon" id="basic-addon2">{{this.modalNormalTimeRadioValue}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xs-12 form-group">
+                                                <label for="modalTimeUrgent" style="margin-bottom:10px;">Urgent Production Time*</label>
+                                                <br>
+                                                <label style="margin-bottom:10px;">
+                                                    <input type="radio" name="urgent" id="modalUHours" (change)="modalUrgentTimeChange(modalUHours)" #modalUHours value="hrs"> In Hours</label>
+                                                <label style="margin-bottom:10px;">
+                                                    <input type="radio" name="urgent" id="modalUDays" (change)="modalUrgentTimeChange(modalUDays)" #modalUDays value="days"> In Days</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="modalTimeUrgent" name="modalTimeUrgent" [value]="this.modalUrgentProductionTime" #modalTimeUrgent required>
+                                                    <span class="input-group-addon" id="basic-addon3">{{this.modalUrgentTimeRadioValue}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" (click)="updatePrice(this.modalPriceID,this.modalTypeID,modalMin.value,modalMax.value,modalPriceNormal.value,modalPriceUrgent.value,modalTimeNormal.value,modalTimeUrgent.value)">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="buttons">
+                                <button type="submit" (click)="updateProductType(productType.value,product.value,type1.value,profitMargin1.value,width1.value,height1.value,unit1.value,remark.value,paper.value,weight1.value,this.imageUrl,this.imgHref)" class="btn addProduct-btn"><i class="fa fa-plus" aria-hidden="true"></i> UPDATE</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

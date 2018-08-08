@@ -1,0 +1,54 @@
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+.selectOptions{
+  display: inline-block;
+  margin-right: 15px;
+  vertical-align: top;
+}
+
+.product-pic img{
+  width: 100%;
+}
+
+.btn-danger{
+  margin-right: 10px;
+}
+
+.usingFlex{
+  display: flex;
+  flex-direction: row;
+}
+
+.buttonPosition{
+  align-self: flex-end;
+}
+
+
+/* Important part */
+.modal-dialog{
+    overflow-y: initial !important
+}
+.create-product{
+    height: 80vh;
+    overflow-y: auto;
+}
+
+.action-buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}

@@ -1,0 +1,53 @@
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <app-admin-sidebar style="background: #7386D5"></app-admin-sidebar>
+  <!-- Page Content  -->
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+          <i class="fa fa-align-left"></i>
+        </button>
+        <h1>Edit Product</h1>
+      </div>
+    </nav>
+    <div class="content-wrapper">
+      <div class="row">
+          <div class="col-md-10 col-xs-12">
+              <div class="form-wrapper">
+                  <form [formGroup] = 'editProductForm' (ngSubmit) = 'editProduct(productName.value, productCode.value, description.value, this.productID, this.createdBy, this.productStatus)' ngNativeValidate>
+                      <div class="form-group row">
+                          <div class="col-md-6 col-xs-12">
+                              <label for="name">Category Name</label>
+                              <input type="text" class="form-control" id="productName" name = "productName" placeholder="Product name" #productName [value] = 'this.pname'>
+                          </div>
+                      </div>
+
+                      <div class="form-group row">
+                          <div class="col-md-3 col-xs-12">
+                              <label for="productCode">Category Code</label>
+                              <input type="text" class="form-control" id="productCode" name = "productCode" placeholder="Product Code" #productCode [value] = 'this.pcode'>
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <div class="col-md-6 col-xs-12">
+                              <label for="remark">Description</label>
+                              <textarea class="form-control" rows="5" id="description" name = "description" placeholder="Add your description to this product." #description [value] = 'this.desc'></textarea>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <div class="col-md-6">
+                            <div class="buttons">
+                                <button class="btn btn-info"> Update</button>
+                            </div>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+
+

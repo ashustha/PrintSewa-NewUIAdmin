@@ -1,0 +1,28 @@
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+.allow{
+	margin-bottom: 10px;
+}
+
+.allow h1{
+    text-transform: uppercase;
+        font-weight: 700;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        color: #7386D5;
+        font-size: 22px;
+}

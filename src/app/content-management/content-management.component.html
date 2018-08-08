@@ -1,0 +1,231 @@
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <app-admin-sidebar style="background: #7386D5"></app-admin-sidebar>
+  <!-- Page Content  -->
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+          <i class="fa fa-align-left"></i>
+          <!-- <span>Toggle Sidebar</span> -->
+        </button>
+        <h1>Content Management</h1>
+      </div>
+    </nav>
+    <div class="content-wrapper">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="tab-wrapper">
+                  <ul class="nav nav-tabs">
+                      <li *ngIf="this.generalLength == 0" class="active" id="updateContact"><a data-toggle="tab" href="#home">Update Contact</a></li>
+                      <li *ngIf="this.generalLength == 0" id='financialInfo'><a data-toggle="tab" href="#menu1">Financial Information</a></li>
+                      <li><a data-toggle="tab" href="#menu2">Update About us</a></li>
+                      <li><a data-toggle="tab" href="#menu5">Update FAQ</a></li>
+                      <li><a data-toggle="tab" href="#menu3">Update Terms & Conditions</a></li>
+                      <li><a data-toggle="tab" href="#menu4">Slider</a></li>
+                  </ul>
+                  <div class="tab-content">
+                      <div *ngIf="this.generalLength == 0" id="home" class="tab-pane fade in active">
+                          <div class="tab-inner-content">
+                              <form [formGroup]='contactForm' ngNativeValidate>
+                                  <div class="form-group row">
+                                      <div class="col-md-6">
+                                          <label for="companyName">Company Name</label>
+                                          <input type="text" class="form-control" id="companyName" name='companyName' formControlName='companyName'>
+                                      </div>
+                                  </div>
+                                  <div class="form-group row">
+                                      <div class="col-md-6">
+                                          <label for="streetAddress">Street Address</label>
+                                          <input type="text" class="form-control" id="streetAddress" name='streetAddress' formControlName='streetAddress'>
+                                      </div>
+                                  </div>
+                                  <div class="form-group row">
+                                      <div class="col-md-6">
+                                          <label for="city">City</label>
+                                          <input type="text" class="form-control" id="city" name='city' formControlName='city'>
+                                      </div>
+                                  </div>
+                                  <div class="form-group row">
+                                      <div class='col-md-6'>
+                                          <label for="zone">Zone</label>
+                                          <select name="zone" id="zone" class="form-control" formControlName='zone'>
+                                              <option [ngValue]=null selected disabled required>--Select Zone--</option>
+                                              <option>Mechi</option>
+                                              <option>Koshi</option>
+                                              <option>Sagarmatha</option>
+                                              <option>Janakpur</option>
+                                              <option>Bagmati</option>
+                                              <option>Narayani</option>
+                                              <option>Gandaki</option>
+                                              <option>Lumbini</option>
+                                              <option>Dhaulagiri</option>
+                                              <option>Rapti</option>
+                                              <option>Karnali</option>
+                                              <option>Bheri</option>
+                                              <option>Seti</option>
+                                              <option>Mahakali</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div class="form-group row">
+                                      <div class="col-md-6">
+                                          <label for="country">Country</label>
+                                          <input type="text" class="form-control" id="country" name='country' formControlName='country'>
+                                      </div>
+                                  </div>
+                                  <div class="form-group row">
+                                      <div class="col-md-6">
+                                          <label for="phone">Phone</label>
+                                          <span id='glyphicon'></span>
+                                          <p class='error-message' id='phonError'></p>
+                                          <input type="number" minlength="10" class="form-control" id="phone" name='phone' formControlName='phone'>
+                                      </div>
+                                  </div>
+                                  <div class="form-group row">
+                                      <div class="col-md-6">
+                                          <label for="email">Email</label>
+                                          <input type="email" class="form-control" id="email" name='email' formControlName='email'>
+                                      </div>
+                                  </div>
+                                  <div class="form-group row buttons">
+                                      <div class="col-md-6">
+                                          <button class="btn add-btn" data-toggle="tab" href="#menu1" (click)='changeToFinancialInformation()'><i class="fa fa-pencil" aria-hidden="true"></i> Next</button>
+                                      </div>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                      <div *ngIf="this.generalLength == 0" id="menu1" class="tab-pane fade">
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="tab-inner-content">
+                                      <form [formGroup]='financialInfoForm' ngNativeValidate>
+                                          <div class="form-group">
+                                              <label for='discountCorporate'>Discount Corporate</label>
+                                              <input id="discountCorporate" name="discountCorporate" formControlName="discountCorporate" type="number" class="form-control">
+                                          </div>
+                                          <div class="form-group">
+                                              <label for='discountIndividual'>Discount Individual</label>
+                                              <input type='number' class="form-control" rows="5" id="discountIndividual" name="discountIndividual" formControlName="discountIndividual" />
+                                          </div>
+                                          <div class="form-group">
+                                              <label for='profitMargin'>Profit Margin</label>
+                                              <input id="profitMargin" name="profitMargin" formControlName="profitMargin" type="number" class="form-control">
+                                          </div>
+                                          <div class="form-group">
+                                              <label for='taxRate'>Tax Rate</label>
+                                              <input id="taxRate" name="taxRate" formControlName="taxRate" type="number" class="form-control">
+                                          </div>
+                                      </form>
+                                      <div class="form-group buttons">
+                                          <button class="btn btn-info" (click)='addContent(contactForm, financialInfoForm)' [disabled]='!contactForm.valid || !financialInfoForm.valid'> Save & Update</button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div id="menu2" class="tab-pane fade">
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="tab-inner-content">
+                                      <form [formGroup]='aboutUsForm' (ngSubmit)='addAboutUs(aboutUsForm)' ngNativeValidate>
+                                          <div class="form-group">
+                                              <textarea class="form-control" rows="10" id="aboutUs" formControlName='aboutField'></textarea>
+                                          </div>
+                                          <div class="form-group buttons">
+                                              <button class="btn btn-info"> Save & Upadate</button>
+                                          </div>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div id="menu5" class="tab-pane fade">
+                          <div class="col-md-6">
+                              <div class="tab-inner-content">
+                                  <form [formGroup]='faqForm' (ngSubmit)='addFaq(faqForm)' ngNativeValidate>
+                                      <div class="form-group">
+                                          <label for="faqQuestion">Question</label>
+                                          <input type="text" class="form-control" id="faqQuestion" formControlName='faqQuestion' placeholder='FAQ Question'>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="faqAnswer">Answer</label>
+                                          <textarea class="form-control" rows="10" id="faqAnswer" formControlName='faqAnswer' placeholder="FAQ Answer"></textarea>
+                                      </div>
+                                      <div class="form-group buttons">
+                                          <button class="btn btn-info"> Save & Upadate</button>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                      <div id="menu3" class="tab-pane fade">
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="tab-inner-content">
+                                      <form [formGroup]='termsForm' (ngSubmit)="addTerms(termsForm)">
+                                          <div class="form-group">
+                                              <textarea class="form-control" rows="10" id="termsField" formControlName='termsField'></textarea>
+                                          </div>
+                                          <div class="form-group buttons">
+                                              <button class="btn btn-info"> Save & Upadate</button>
+                                          </div>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div id="menu4" class="tab-pane fade">
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="slider-preview row">
+                                      <div class="col-md-7">
+                                          <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                              <ol class="carousel-indicators">
+                                                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                                  <li *ngFor="let slider of this.sliderData; let i = index" data-target="#myCarousel" data-slide-to="1"></li>
+                                                  <li data-target="#myCarousel" data-slide-to="2"></li>
+                                              </ol>
+                                              <div class="carousel-inner">
+                                                  <div class="item active">
+                                                      <img src="../../assets/img/banner.jpg" alt="">
+                                                  </div>
+                                                  <div class="item" *ngFor="let slider of this.sliderData">
+                                                      <img src="{{slider.hrefUrl}}" alt="">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <form enctype="multipart/form-data">
+                                      <div class="form-group">
+                                          <label for="banner">Upload New Banner</label>
+                                          <input id="banner" name="banner" type="file" (change)='fileChangeEvent($event)' accept=".jpg,.jpeg,.png" placeholder='Upload a banner..' />
+                                          <br/>
+                                      </div>
+                                  </form>
+                                  <form [formGroup]='sliderForm' ngNativeValidate>
+                                      <div class="form-group">
+                                          <input type="text" class="form-control" placeholder="Heading One" id='heading' name="heading" formControlName="heading">
+                                      </div>
+                                      <div class="form-group">
+                                          <input type="text" class="form-control" placeholder="Sub-Heading" id='subHeading' name="subHeading" formControlName="subHeading">
+                                      </div>
+                                      <div class="form-group">
+                                          <textarea placeholder="Description" class="form-control" id='description' name="description" formControlName="description"> </textarea>
+                                      </div>
+                                      <div class="form-group">
+                                          <button class="btn btn-info" (click)="addHomePageSlider(sliderForm)" [disabled]="!sliderForm.valid"> Upload</button>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

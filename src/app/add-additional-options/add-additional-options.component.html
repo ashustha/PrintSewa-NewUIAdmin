@@ -1,0 +1,114 @@
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <app-admin-sidebar style="background: #7386D5"></app-admin-sidebar>
+  <!-- Page Content  -->
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+          <i class="fa fa-align-left"></i>
+          <!-- <span>Toggle Sidebar</span> -->
+        </button>
+        <h1>Products</h1>
+      </div>
+    </nav>
+    <div class="content-wrapper">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="header">
+                  <div class="row">
+                      <div class="col col-xs-6">
+                          <h3 class="panel-title"></h3>
+                      </div>
+                      <div class="col col-xs-6 text-right">
+                          <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#addAdditionalOptions">Create New</button>
+                      </div>
+                  </div>
+              </div>
+              <div class="placeholder" *ngIf="this.additionalOptionLength ==0">
+                  <p>No Additional Option is Available</p>
+              </div>
+              <div class="" *ngIf="this.additionalOptionLength !=0">
+                  <div class="table-responsive">
+                      <table class="table table-list">
+                          <thead>
+                              <tr>
+                                  <th class="hidden-xs">ID</th>
+                                  <th>Name</th>
+                                  <th>Cost (R.s)</th>
+                                  <th>Repeat</th>
+                                  <th>&nbsp;</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let option of this.additionalOption | paginate: {itemsPerPage:10, currentPage:p}">
+                                  <td>{{option.additionalOptionsID}}</td>
+                                  <td>{{option.name}}</td>
+                                  <td>{{option.cost}}</td>
+                                  <td>{{option.repeat}}</td>
+                                  <td class="actionBtn">
+                                      <a class="btn btn-default" routerLink = "/editAdditionalOptions/{{option.additionalOptionsID}}"><em class="fa fa-pencil" ></em></a>
+                                      <a class="btn btn-danger" (click) = 'deleteAdditionalOptions(option)'><em class="fa fa-trash"></em></a>
+                                  </td>
+                              </tr> 
+                          </tbody>
+                      </table>
+                      
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="pagination">
+      <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+
+<!-- Add Additional Options Modal -->
+<div class="modal animated zoomIn fast" id="addAdditionalOptions" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Super Category</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="form-wrapper">
+                    <form [formGroup]='additionalOptions' ngNativeValidate (ngSubmit)='addAdditionalOptions(additionalOptions)'>
+                        <div class="form-group row">
+                            <div class="col-md-12 col-xs-12">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" formControlName="name" placeholder="Option name" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12 col-xs-12">
+                                <label for="cost">Cost</label>
+                                <input type="number" class="form-control" id="cost" name="cost" formControlName="cost" placeholder="Cost" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12 col-xs-12">
+                                <div class="checkbox-inline">
+                                    <label>
+                                        <input type="checkbox" id="repeat" name="repeat" formControlName="repeat" [checked]=false>Repeat</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="buttons">
+                                <button type="submit" class="btn btn-info" [disabled]="!additionalOptions.valid"><i class="fa fa-plus" aria-hidden="true"></i> Add Option</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

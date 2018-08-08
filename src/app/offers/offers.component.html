@@ -1,0 +1,134 @@
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <app-admin-sidebar style="background: #7386D5"></app-admin-sidebar>
+  <!-- Page Content  -->
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+          <i class="fa fa-align-left"></i>
+          <!-- <span>Toggle Sidebar</span> -->
+        </button>
+        <h1>Product offers</h1>
+      </div>
+    </nav>
+    <div class="content-wrapper">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="header">
+            <div class="row">
+              <div class="col col-xs-6">
+                <h3 class="panel-title"></h3>
+              </div>
+              <div class="col col-xs-6 text-right">
+                <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#createOffers">Create New</button>
+              </div>
+            </div>
+          </div>
+          <div class="placeholder" *ngIf="this.productOffersLength == 0">
+            <p>No Offers are Available</p>
+          </div>
+          <div class="" *ngIf="this.productOffersLength != 0">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="hidden-xs">ID</th>
+                    <th>Product Name</th>
+                    <th>Offer Name</th>
+                    <th>Offer Description</th>
+                    <th>Discount Percentage</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!--    <tr *ngFor = 'let product of this.allProducts; let i = index'>
+                                <td class="hidden-xs">{{i+1}}</td> -->
+                  <tr *ngFor='let offer of this.productOffers | paginate: {itemsPerPage:10, currentPage:p}'>
+                    <td>{{offer.offerProductID}}</td>
+                    <td>{{offer.typeName}}</td>
+                    <td>{{offer.offerProductName}}</td>
+                    <td>{{offer.offerProductDescription}}</td>
+                    <td>{{offer.offerProductDiscountPercentage}}%</td>
+                    <td align="center">
+                      <a class="btn btn-default" routerLink='/editOffers/{{offer.offerProductID}}'><em class="fa fa-pencil"></em></a>
+                      <a class="btn btn-danger" (click)='deleteOfferProducts(offer.offerProductID)'><em class="fa fa-trash"></em></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="pagination">
+              <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Create offers Modal -->
+<div class="modal  animated zoomIn fast" id="createOffers" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Offers</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12 col-xs-12">
+            <div class="form-wrapper">
+              <form [formGroup]='addProductOffersForm' ngNativeValidate (ngSubmit)='addProductOffer(addProductOffersForm)'>
+                <div class="form-group row">
+                  <div class="col-md-12 col-xs-12">
+                    <label for="name">Product Offer Name</label>
+                    <input type="text" class="form-control" id="offerProductName" name="offerProductName" placeholder="Product name" formControlName='offerProductName'>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12 col-xs-12">
+                    <label for="name">Product Code</label>
+                    <select class='form-control' name="productCode" id="productCode" formControlName="productCode">
+                      <option [ngValue]=null selected disabled>Select Product Code</option>
+                      <option *ngFor="let product of this.productsData">{{product.typeCode}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12 col-xs-12">
+                    <label for="name">Product Offer Description</label>
+                    <input type="text" class="form-control" placeHolder="Offer Description" id="offerProductDescription" name="offerProductDescription" formControlName='offerProductDescription'>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12 col-xs-12">
+                    <label for="productCode">Discount Percentage</label>
+                    <input type="text" class="form-control" id="offerProductDiscountPercentage" name="offerProductDiscountPercentage" formControlName="offerProductDiscountPercentage" placeholder="Discount Percentage">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12 col-xs-12">
+                    <label for="hotDeal">Hot Deals</label>
+                    <select class='form-control' name="hotDeal" id="hotDeal" formControlName="hotDeal">
+                      <option [ngValue]=null selected disabled>Hot Deal</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <div class="buttons">
+                      <button class="btn btn-info" [disabled]="!addProductOffersForm.valid"> Add Product Offer</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

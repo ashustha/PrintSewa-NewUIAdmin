@@ -1,0 +1,58 @@
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <app-admin-sidebar style="background: #7386D5"></app-admin-sidebar>
+  <!-- Page Content  -->
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+          <i class="fa fa-align-left"></i>
+        </button>
+          <h1>Edit Admin</h1>
+      </div>
+    </nav>
+    <div class="content-wrapper">
+      <div class="row">
+          <div class="col-md-10">
+              <form (submit)="updateAdmin(uname.value,email1.value,AccMS.checked,AdmMS.checked,CMS.checked,OMS.checked,PriMS.checked,ProMS.checked, this.loginID)">
+                  <div class="form-group row">
+                      <div class="col-md-6">
+                          <label for="username">Username*</label>
+                          <input type="text" class="form-control form-group" id="uname" name="uname" [value]="this.username" #uname>
+                      </div>
+                      <div class="col-md-6">
+                          <label for="email">Email*</label>
+                          <input type="email" class="form-control form-group" id="email1" name="email1" [value]="this.email" #email1>
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <div class="col-md-12">
+                          <div class="checkbox-inline">
+                            <label><input type="checkbox" name="AccMS" id="AccMS" [checked]="this.accessManagementModule == 1" [value] = "this.accessManagementModuleValue" #AccMS>Access Management System</label>
+                          </div>
+                          <div class="checkbox-inline">
+                            <label><input type="checkbox" name="AdmMS" id="AdmMS" [checked]="this.adminCreatorModule == 1" [value] = "this.adminCreatorModule" #AdmMS>Admin Creator System</label>
+                          </div>
+                          <div class="checkbox-inline">
+                            <label><input type="checkbox" name="CMS" id="CMS" [checked]="this.contentManagementModule == 1" [value] = "this.contentManagementModule" #CMS>Content Management System</label>
+                          </div>
+                          <div class="checkbox-inline">
+                            <label><input type="checkbox" name="OMS" id="OMS" [checked]="this.orderManagementModule == 1" [value] = "this.orderManagementModule" #OMS>Order Management System</label>
+                          </div>
+                          <div class="checkbox-inline">
+                            <label><input type="checkbox" name="PriMS" id="PriMS" [checked]="this.pricingManagementModule == 1" [value] = "this.pricingManagementModule" #PriMS>Pricing Management System</label>
+                          </div>
+                          <div class="checkbox-inline">
+                            <label><input type="checkbox" name="ProMS" id="ProMS" [checked]="this.productManagementModule == 1" [value] = "this.productManagementModule" #ProMS>Product Management System</label>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <button id="submit-btn" type="submit" class="btn btn-info"> UPDATE</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

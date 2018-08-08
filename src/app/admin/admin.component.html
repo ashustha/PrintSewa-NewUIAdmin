@@ -1,0 +1,95 @@
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <app-admin-sidebar style="background: #7386D5"></app-admin-sidebar>
+  <!-- Page Content  -->
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+          <i class="fa fa-align-left"></i>
+          <!-- <span>Toggle Sidebar</span> -->
+        </button>
+        <h1>Admin</h1>
+      </div>
+    </nav>
+    <div class="content-wrapper">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="heading">
+            <div class="row">
+              <div class="col col-xs-6">
+                <h3 class="panel-title"></h3>
+              </div>
+              <div class="col col-xs-6 text-right">
+                <button type="button" class="btn btn-sm btn-info" routerLink="/createAdmin">Create New</button>
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="hidden-xs">ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Access Management Module</th>
+                    <th>Admin Creator Module</th>
+                    <th>Content Management Module</th>
+                    <th>Order Management Module</th>
+                    <th>Pricing Management Module</th>
+                    <th>Product Management Module</th>
+                    <th *ngIf="this.admin_role == 'superadmin'">Change Password</th>
+                    <th *ngIf="this.accessManagementModule == 1">Edit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!--    <tr *ngFor = 'let product of this.allProducts; let i = index'>
+                                      <td class="hidden-xs">{{i+1}}</td> -->
+                  <tr *ngFor='let admin of this.allAdmin | paginate: {itemsPerPage:10, currentPage:p}'>
+                    <td>{{admin.loginID}}</td>
+                    <td>{{admin.username}}</td>
+                    <td>{{admin.email}}</td>
+                    <td class="roleMark">
+                      <i *ngIf="admin.accessManagementModule == 1" class="fa fa-check" aria-hidden="true"></i>
+                      <i *ngIf="admin.accessManagementModule != 1" class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td class="roleMark">
+                      <i *ngIf="admin.adminCreatorModule == 1" class="fa fa-check" aria-hidden="true"></i>
+                      <i *ngIf="admin.adminCreatorModule != 1" class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td class="roleMark">
+                      <i *ngIf="admin.contentManagementModule == 1" class="fa fa-check" aria-hidden="true"></i>
+                      <i *ngIf="admin.contentManagementModule != 1" class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td class="roleMark">
+                      <i *ngIf="admin.orderManagementModule == 1" class="fa fa-check" aria-hidden="true"></i>
+                      <i *ngIf="admin.orderManagementModule != 1" class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td class="roleMark">
+                      <i *ngIf="admin.pricingManagementModule == 1" class="fa fa-check" aria-hidden="true"></i>
+                      <i *ngIf="admin.pricingManagementModule != 1" class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td class="roleMark">
+                      <i *ngIf="admin.productManagementModule == 1" class="fa fa-check" aria-hidden="true"></i>
+                      <i *ngIf="admin.productManagementModule != 1" class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td *ngIf="this.admin_role == 'superadmin'">
+                      <button class="btn btn-default" (click)="changePassword(admin.loginID)"><em class="fa fa-cog"></em></button>
+                    </td>
+                    <td align="center" *ngIf="this.accessManagementModule == 1">
+                      <button class="btn btn-default" (click)="editAdmin(admin.loginID)"><em class="fa fa-universal-access"></em></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pagination">
+      <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+.usingFlex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+.button-wrapper{
+  margin-bottom: 15px;
+}
+
+.buttonPosition{
+  align-self: flex-end;
+}
+
+.action-buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.checkboxgap{
+  margin-right: 10px;
+}
+
+input[type=checkbox], input[type=radio] {
+    margin-right: 5px;
+}

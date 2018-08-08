@@ -1,0 +1,80 @@
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <app-admin-sidebar style="background: #7386D5"></app-admin-sidebar>
+  <!-- Page Content  -->
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+          <i class="fa fa-align-left"></i>
+        </button>
+        <h1>Edit Product Name</h1>
+      </div>
+    </nav>
+    <div class="content-wrapper">
+      <div class="row wrapper">
+        <div class="col-md-6 col-xs-12">
+          <div class="form-wrapper">
+            <form ngNativeValidate>
+              <div class="form-group row">
+                <div class="col-md-12 col-xs-12">
+                  <label for="name">Product Offer Name</label>
+                  <input type="text" class="form-control" id="offerProductName" name="offerProductName" placeholder="Product name" #offerProductName [value]='this.offerProductName1'>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12 col-xs-12">
+                  <label for="name">Product Code</label>
+                  <!-- <input class = 'form-control' name="productCode" id="productCode" [value] = 'this.productCode1' #productCode> -->
+                  <select class="form-control" id="productCode" name="productCode" [value]="this.productCode1" #productCode required>
+                    <option *ngFor="let product of this.productsData">{{product.typeCode}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12 col-xs-12">
+                  <label for="name">Product Offer Description</label>
+                  <input type="text" class="form-control" id="offerProductDescription" name="offerProductDescription" [value]='this.offerProductDescription1' #offerProductDescription>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6 col-xs-12">
+                  <label for="productCode">Discount Percentage</label>
+                  <input type="number" class="form-control" id="offerProductDiscountPercentage" name="offerProductDiscountPercentage" [value]='this.offerProductDiscountPercentage1' #offerProductDiscountPercentage placeholder="Discount Percentage">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12 col-xs-12">
+                  <label for="hotDeal">Hot Deal</label>
+                  <select class="form-control" id="hotDeal" name="hotDeal" [value]="this.hotDeal1" #hotDeal required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12 col-xs-12">
+                  <label for="offerStatus">Offer Status</label>
+                  <input type="text" class="form-control text-capitalize" id="offerStatus" name="offerStatus" [value]='this.offerStatus' disabled>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="buttons">
+                  <div class="button">
+                    <button class="btn btn-info" (click)="editOfferProduct(offerProductName.value,productCode.value,offerProductDescription.value,offerProductDiscountPercentage.value,hotDeal.value, this.offerProductID,'active')"> Active</button>
+                  </div>
+                  <div class="button">
+                    <button class="btn btn-info" (click)="editOfferProduct(offerProductName.value,productCode.value,offerProductDescription.value,offerProductDiscountPercentage.value,hotDeal.value, this.offerProductID,'inactive')"> In-Active</button>
+                  </div>
+                  <div class="button">
+                    <button class="btn btn-info" (click)="editOfferProduct(offerProductName.value,productCode.value,offerProductDescription.value,offerProductDiscountPercentage.value,hotDeal.value, this.offerProductID,'active')"> Update</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

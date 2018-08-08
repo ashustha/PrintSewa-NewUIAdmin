@@ -1,0 +1,26 @@
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+.buttons{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.buttons .button{
+	display: inline-block;
+}
+
